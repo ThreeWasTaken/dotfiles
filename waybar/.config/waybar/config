@@ -414,7 +414,7 @@
     "custom/change_wallpaper": {
         "format": "🎨",
 	"tooltip": false,
-        "on-click": "~/scripts/change_wall.sh",
+        "on-click": "~/.config/scripts/change_wall.sh",
 	"on-click-right": "~/.config/eww/scripts/show_wallpicker.sh",
         "interval": 0
    },
