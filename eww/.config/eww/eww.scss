@@ -1,0 +1,47 @@
+* {
+  all: unset;
+  font-family: JetBrainsMono, monospace;
+  color: white;
+}
+
+window#wallpicker {
+  background-color: rgba(20, 20, 30, 0.8);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.wallpaper-grid {
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.85); /* subtle background */
+}
+
+.wallpaper-thumb {
+  border-radius: 12px;
+  margin: 4px;
+  border: 2px solid transparent; /* prevent jerky resize */
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallpaper-thumb:hover {
+  border: 2px solid #7aa2f7;
+  background-color: rgba(122, 162, 247, 0.1);
+}
+
+.wallpaper-thumb image {
+  border-radius: 12px;
+}
+
+.thumb-wrapper {
+  border-radius: 10px;
+}
+
+.thumb {
+  border-radius: 10px; // Optional, not strictly necessary
+}
+
+.click-catcher {
+  background-color: rgba(255, 255, 255, 0.85);
+}

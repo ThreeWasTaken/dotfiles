@@ -1,0 +1,26 @@
+(defvar wallpapers "[]")
+
+(defwidget wallpaper-grid [wallpapers]
+  (box :class "wallpaper-grid" :orientation "h"
+    (for wallpaper in wallpapers
+      (button :class "wallpaper-thumb"
+	      :onclick "sh -c \"swww img '${wallpaper}' --transition-type any --transition-fps 60 --transition-duration 2; eww close wallpicker\""
+              :onrightclick "eww close wallpicker"
+	      :onmiddleclick "killall eww"
+      (box :class "thumb-wrapper"
+        (image :path wallpaper
+               :class "thumb"
+               :image-width 160
+               :image-height 90
+               :preserve-aspect-ratio true))))))
+
+(defwindow wallpicker
+  :monitor 2
+  :geometry (geometry :x "960px" :y "150px" :anchor "top center"
+                      :width "1100px" :height "150px")
+  :stacking "fg"
+  :focusable true
+  :exclusive false
+  :wm-ignore false
+  :onunfocus "eww close wallpicker"
+  (wallpaper-grid :wallpapers wallpapers))

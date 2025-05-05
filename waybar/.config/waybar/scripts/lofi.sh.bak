@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+# ─────────────────────────────────────────────
+# LOFI PLAYER & VISUALIZER (Waybar module)
+# Left-click: Play/Pause current station
+# Right-click: Switch to next station
+# Regular output: Icon + pulse-style visualizer bars
+# ─────────────────────────────────────────────
+
+# Define stations
+declare -A STATIONS=(
+  ["lofi hip hop"]="https://www.youtube.com/watch?v=jfKfPfyJRdk"
+  ["lofi game"]="https://www.youtube.com/watch?v=4xDzrJKXOOY"
+  ["lofi jazz"]="https://www.youtube.com/watch?v=HuFYqnbVbzY"
+  ["lofi medieval"]="https://www.youtube.com/watch?v=IxPANmjPaek"
+  ["lofi sleep"]="https://www.youtube.com/watch?v=28KRPhVzCus"
+)
+
+declare -A ICONS=(
+  ["lofi hip hop"]="🎧"
+  ["lofi game"]="🕹️"
+  ["lofi jazz"]="🎷"
+  ["lofi medieval"]="🏰"
+  ["lofi sleep"]="😴"
+)
+
+declare -A COLORS=(
+  ["lofi hip hop"]="#b48ead"
+  ["lofi game"]="#a3be8c"
+  ["lofi jazz"]="#88c0d0"
+  ["lofi medieval"]="#d08770"
+  ["lofi sleep"]="#5e81ac"
+)
+
+# File paths
+PID_FILE="/tmp/lofi-mpv.pid"
+STATE_FILE="/tmp/lofi-state.txt"
+TICK_FILE="/tmp/fake_viz_tick"
+
+# Current station (default fallback)
+CURRENT=$(cat "$STATE_FILE" 2>/dev/null)
+[[ -z "$CURRENT" ]] && CURRENT="lofi hip hop"
+
+ICON="${ICONS[$CURRENT]}"
+COLOR="${COLORS[$CURRENT]}"
+URL="${STATIONS[$CURRENT]}"
+
+# Is music playing?
+if [[ -f "$PID_FILE" ]]; then
+  pid=$(<"$PID_FILE")
+  if kill -0 "$pid" 2>/dev/null; then
+    PLAYING=true
+  else
+    PLAYING=false
+  fi
+else
+  PLAYING=false
+fi
+
+# ────────────────────────────────
+# Handle commands
+# ────────────────────────────────
+case "$1" in
+  toggle)
+    if $PLAYING; then
+      kill "$pid"
+      rm "$PID_FILE"
+    else
+      mpv --no-video --quiet --ytdl-format=bestaudio "$URL" &
+      echo $! > "$PID_FILE"
+    fi
+    exit
+    ;;
+  next)
+    keys=("${!STATIONS[@]}")
+    index=0
+    for i in "${!keys[@]}"; do
+      [[ "${keys[$i]}" == "$CURRENT" ]] && index=$i && break
+    done
+    next_index=$(( (index + 1) % ${#keys[@]} ))
+    NEXT="${keys[$next_index]}"
+    echo "$NEXT" > "$STATE_FILE"
+    # Restart music if it was playing
+    [[ "$PLAYING" == true ]] && "$0" toggle && "$0" toggle
+    exit
+    ;;
+  show)
+    # Get time tick
+    [[ -f $TICK_FILE ]] && TICK=$(<"$TICK_FILE") || TICK=0
+    TICK=$((TICK + 1))
+    echo "$TICK" > "$TICK_FILE"
+
+    # Pulse wave pattern
+    pattern=(1 2 3 2 1 0)
+    BARS=(▁ ▂ ▃ ▄ ▅ ▆ ▇ █)
+    NUM_BARS=6
+
+    output=""
+    if $PLAYING; then
+      for ((i = 0; i < NUM_BARS; i++)); do
+        idx=$(( (i + TICK) % ${#pattern[@]} ))
+        bar_idx=${pattern[$idx]}
+        output+="${BARS[$bar_idx]}"
+      done
+    else
+      output="$(printf '▁%.0s' $(seq 1 $NUM_BARS))"
+    fi
+
+    echo "<span color='$COLOR'>$ICON $output</span>"
+    ;;
+  *)
+    echo "Usage: $0 [toggle|next|show]"
+    exit 1
+    ;;
+esac
