@@ -21,6 +21,7 @@
         //"custom/rofi",
         "hyprland/workspaces",
         "hyprland/submap",
+	"custom/monitor_mode",
         //"temperature",
         //"idle_inhibitor",
         "mpd",
@@ -52,6 +53,16 @@
     // -------------------------------------------------------------------------
     // Modules
     // -------------------------------------------------------------------------
+
+    "custom/monitor_mode": {
+      "exec": "cat /tmp/hypr_monitor_mode 2>/dev/null || echo normal",
+      "format": "{}",
+      "tooltip": false,
+      "on-click": "~/.config/scripts/toggle_monitor_gap.sh",
+      "interval": 1,
+      "return-type": "plain-text"
+    },
+
 
     "custom/lofi": {
       "format": "{}",
