@@ -1,0 +1,13 @@
+[Added Associations]
+image/png=feh.desktop;swappy.desktop;org.kde.gwenview.desktop;imv.desktop;org.gnome.Loupe.desktop;
+image/gif=org.gnome.Loupe.desktop;
+image/svg+xml=org.gnome.Loupe.desktop;
+image/jpeg=org.gnome.Loupe.desktop;
+
+[Default Applications]
+image/gif=org.gnome.Loupe.desktop
+image/png=org.gnome.Loupe.desktop
+image/svg+xml=org.gnome.Loupe.desktop
+image/jpeg=org.gnome.Loupe.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
