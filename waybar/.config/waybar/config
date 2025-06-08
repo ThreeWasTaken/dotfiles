@@ -45,6 +45,7 @@
         "wireplumber",
         "custom/screenshot_t",
         "tray",
+	"custom/audio-toggle",
         "clock#three",
         "custom/power"
     ],
@@ -436,6 +437,15 @@
       "on-click": "~/.local/bin/lofi",
       "on-click": "kitty --class lofi --title 'lofi chill' ~/.local/bin/lofi",
       "interval": 0
-   }
+   },
+
+  "custom/audio-toggle": {
+    "format": "{}",
+    "tooltip": false,
+    "exec": "~/.config/waybar/scripts/audio_toggle.sh",
+    "interval": 9999,
+    "on-click": "~/.config/waybar/scripts/audio_toggle.sh"
+  }
+
 
 }
