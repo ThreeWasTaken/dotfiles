@@ -11,3 +11,4 @@ image/svg+xml=org.gnome.Loupe.desktop
 image/jpeg=org.gnome.Loupe.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
+text/plain=pluma.desktop
