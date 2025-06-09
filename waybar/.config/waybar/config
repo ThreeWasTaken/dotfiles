@@ -26,14 +26,12 @@
         //"idle_inhibitor",
         "mpd",
         "custom/spotify",
-        "custom/bar-style",
     ],
     "modules-center": [
         //"custom/gammastep",
         "hyprland/window",
     ],
     "modules-right": [
-	"custom/gf-ping",
 	"custom/simple_lofi",
 	//"custom/lofi",
 	"custom/change_wallpaper",
@@ -443,17 +441,11 @@
 
   "custom/audio-toggle": {
     "format": "{}",
-    "tooltip": false,
     "exec": "~/.config/waybar/scripts/audio_toggle.sh",
     "interval": 9999,
+    "signal": 10,
     "on-click": "~/.config/waybar/scripts/audio_toggle.sh"
-  },
+  }
 
-  "custom/bar-style": {
-    "format": "{}",
-    "exec": "cat /tmp/waybar_barstyle 2>/dev/null || echo ''",
-    "interval": 1,
-    "signal": 21
-  },
 
 }
