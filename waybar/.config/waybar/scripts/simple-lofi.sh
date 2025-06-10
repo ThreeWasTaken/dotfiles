@@ -10,7 +10,7 @@
 # ────────────────────────────────────────────────────────
 
 STATIONS=(
-  "🎧|lofi hip hop|#b48ead|https://www.youtube.com/watch?v=jfKfPfyJRdk"
+  "🐈|lofi hip hop|#b48ead|https://www.youtube.com/watch?v=jfKfPfyJRdk"
   "😔|lofi sad|#a3be8c|https://www.youtube.com/watch?v=P6Segk8cr-c"
   "🎷|lofi jazz|#ffd700|https://www.youtube.com/watch?v=HuFYqnbVbzY"
   "🏰|lofi medieval|#d08770|https://www.youtube.com/watch?v=IxPANmjPaek"
