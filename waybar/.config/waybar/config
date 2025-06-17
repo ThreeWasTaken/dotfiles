@@ -449,7 +449,7 @@
     "exec": "~/.config/waybar/scripts/audio_toggle.sh",
     "interval": 9999,
     "signal": 10,
-    "on-click": "~/.config/waybar/scripts/audio_toggle.sh --switch",
+    "on-click": "~/.config/waybar/scripts/audio_toggle.sh --switch && pkill -SIGRTMIN+10 waybar",
     "tooltip": false
   },
 
